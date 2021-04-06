@@ -5,7 +5,6 @@ var app = express();
 
 app.use(express.json())
 
-
 var options = {
   // use the server key
   key: fs.readFileSync('./keys/server-key.pem'),
@@ -13,10 +12,32 @@ var options = {
   // use the server cert
   cert: fs.readFileSync('./keys/server-crt.pem'),
 
+  requestCert: true,
+  rejectUnauthorized: false,
+
+  ca: [ fs.readFileSync('./keys/cacert.pem') ] //HIC Client Cert
+
 };
 
+app.use(function (req, res, next) {
+
+  if (!req.client.authorized) {
+    return res.status(401).send('User is not authorized');
+  }
+
+  next();
+});
+
 app.get('/v1/hello', function (req, res) {
-  res.status(200).send('world');
+
+  var cert = req.socket.getPeerCertificate();
+  if (cert.subject.OU === "UNIT 1") {
+    res.status(200).send('world');
+
+  }else{
+    res.status(400).send({error:"invalid OU value"});
+  }
+
 });
 
 app.post('/v2/hello', function (req, res) {
@@ -58,7 +79,6 @@ app.post('/v2/hello', function (req, res) {
   }
 
 });
-
 
 var listener = https.createServer(options, app).listen(9000, function () {
   console.log('Express HTTPS server listening on port ' + listener.address().port);
