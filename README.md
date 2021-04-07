@@ -7,12 +7,12 @@ Tasks For https://gitlab-public.az.hvsn.io/esanchez/hic_interview_tasks
 - Client certificates were given and self signed certificates were created for the server. 
 - The server is configured to accept the given client ca certificate (cacert.pem). 
 - When making client calls with curl, the server self signed certificate needs to be specified since it is not in the trusted domains.
-    - This could be changed for production deployments. A domain name must be included and the hosting environment needs to have a certificate signed by a trusted source such as Let's Encrypt, DigiCert etc. so any client can recognize for HTTPS to be enabled.
+    - This could be changed for production deployments. A domain name must be included and the hosting environment needs to have a certificate signed by a trusted source such as Let's Encrypt, DigiCert etc. so any client can recognize it.
     - The docker file could be deployed to a service such as AWS elastic beanstalk which can run the TLS server using AWS certificates and custom domains.
 
 ## Instructions
 
-1. Project is created using Node.js runtime.
+1. Project is created using Node.js runtime. The server is located at app.js.
 2. This repository is configured to work on a local machine.
     - To run the server locally execute the following on the interview folder:
         - npm install
