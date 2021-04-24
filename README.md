@@ -1,7 +1,7 @@
 ## Introduction
 
 - The main task of this project is to configure a TLS server that could handle 2 way SSL. 
-- Client certificates and server certificates were created. You can find hoy to create them.
+- Client certificates and server certificates were created. You can find how to create them. Look at app.js code for naming and paths.
 - The server is configured to accept the given client ca certificate (cacert.pem). 
 - When making client calls with curl, the server self signed certificate needs to be specified since it is not in the trusted domains.
     - This could be changed for production deployments. A domain name must be included and the hosting environment needs to have a certificate signed by a trusted source such as Let's Encrypt, DigiCert etc. so any client can recognize it.
