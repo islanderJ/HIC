@@ -15,7 +15,7 @@ var options = {
   requestCert: true,
   rejectUnauthorized: false,
 
-  ca: [ fs.readFileSync('./keys/cacert.pem') ] //HIC Client Cert
+  ca: [ fs.readFileSync('./keys/cacert.pem') ] //Client Cert
 
 };
 
@@ -31,7 +31,7 @@ app.use(function (req, res, next) {
 app.get('/v1/hello', function (req, res) {
 
   var cert = req.socket.getPeerCertificate();
-  if (cert.subject.OU === "UNIT 1") {
+  if (cert.subject.OU === "Hello") {
     res.status(200).send('world');
 
   }else{
